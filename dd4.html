@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drag and Drop Game</title>
+  <style>
+    .word {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+    }
+
+    .dropzone {
+      display: inline-block;
+      width: 100px;
+      height: 50px;
+      border: 1px dashed #ccc;
+      margin: 5px;
+    }
+
+    .dropzone.active {
+      border-color: #4caf50;
+    }
+
+    #checkBtn {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="wordsContainer"></div> <!-- Draggable words -->
+  <div id="dropzoneContainer"></div> <!-- Drop zones -->
+  <button id="checkBtn" style="display:none;">Check</button>
+  <div id="result"></div> <!-- Result message -->
+
+  <script src="game.js"></script> <!-- Assuming your script is in game.js -->
+</body>
+</html>

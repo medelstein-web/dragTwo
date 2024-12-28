@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sentence Generator - Page 1</title>
+  <style>
+    .container {
+      padding: 20px;
+    }
+    .input-section {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    .color-inputs label {
+      margin-right: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Enter a Sentence and Assign Colors</h1>
+    
+    <!-- Input Section for Sentence -->
+    <div class="input-section">
+      <label for="sentenceInput">Enter a sentence (words separated by commas):</label>
+      <input type="text" id="sentenceInput" placeholder="E.g., The quick brown fox" />
+    </div>
+
+    <!-- Color Inputs Section -->
+    <div class="input-section color-inputs" id="colorInputs"></div>
+
+    <!-- Generate Button -->
+    <div>
+      <button id="generateBtn">Generate Game</button>
+    </div>
+  </div>
+
+  <script>
+    const sentenceInput = document.getElementById('sentenceInput');
+    const colorInputs = document.getElementById('colorInputs');
+    const generateBtn = document.getElementById('generateBtn');
+  
+    let correctSentence = [];
+
+    // Generate color inputs dynamically when the teacher enters a sentence
+    sentenceInput.addEventListener('input', () => {
+      const words = sentenceInput.value.split(',').map(word => word.trim());
+      colorInputs.innerHTML = ''; // Clear previous color inputs
+
+      words.forEach((word, index) => {
+        const label = document.createElement('label');
+        label.textContent = word;
+        const colorPicker = document.createElement('input');
+        colorPicker.type = 'color';
+        colorPicker.id = `color-${index}`;
+        label.appendChild(colorPicker);
+        colorInputs.appendChild(label);
+        colorInputs.appendChild(document.createElement('br'));
+      });
+    });
+
+    // Generate the game and store data in localStorage when the "Generate" button is clicked
+    generateBtn.addEventListener('click', () => {
+      const words = sentenceInput.value.split(',').map(word => word.trim());
+      correctSentence = [...words]; // Save the correct sentence order
+
+      if (words.length === 1) {
+        alert("Please enter a sentence!");
+        return;
+      }
+
+      // Assign colors based on teacher inputs
+      const wordColors = words.map((_, index) => {
+        const colorInput = document.getElementById(`color-${index}`);
+        return colorInput ? colorInput.value : '#000'; // Default to black if no color selected
+      });
+
+      // Save the sentence and colors in localStorage
+      const wordsValue = { sentence: words, colors: wordColors };
+      localStorage.setItem('words-value', JSON.stringify(wordsValue)); // Store as a string
+
+      // Redirect to dd4.html (second page)
+      window.location.href = "dd4.html";
+    });
+  </script>
+</body>
+</html>
